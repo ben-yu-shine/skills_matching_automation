@@ -60,7 +60,6 @@ Each fetched profile is appended to the output file with a separator marking the
 ```
 === START OF [name] ===
 [Profile content here]
-
 === END OF [name] ===
 ```
 
