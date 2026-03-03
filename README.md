@@ -13,7 +13,7 @@ skills_matching_automation/
 ├── scripts/
 │   └── shell/
 │       └── fetch_profiles.sh    # Script to fetch profiles from URLs
-└── README.md                     # This file
+└── README.md                    # This file
 ```
 
 ## Scripts
