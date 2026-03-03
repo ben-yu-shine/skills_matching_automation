@@ -13,8 +13,23 @@ skills_matching_automation/
 ├── scripts/
 │   └── shell/
 │       └── fetch_profiles.sh    # Script to fetch profiles from URLs
+├── Pipfile                      # Python dependencies
+├── Pipfile.lock                 # Locked dependency versions
+├── Makefile                     # Build automation
 └── README.md                    # This file
 ```
+
+## Getting Started with Make
+
+This project uses a Makefile for easy setup and execution. Make sure you have `pipenv` installed.
+
+### Quick Start
+
+```bash
+make fetch-profiles INPUT_FILE=<input_csv_name> OUTPUT_FILE=<output_file_name>
+```
+
+This will automatically create a Python virtual environment from `Pipfile.lock` and run the profile fetching script.
 
 ## Scripts
 
@@ -25,25 +40,9 @@ Fetches content from URLs stored in a CSV file and concatenates them into a sing
 #### Requirements
 
 - `bash`
-- `curl` - for fetching URLs
-- `html2text` - for converting HTML to plain text
-
-#### Usage
-
-```bash
-./scripts/shell/fetch_profiles.sh <input_csv_file> [output_file]
-```
-
-#### Arguments
-
-- `<input_csv_file>` (required): Path to CSV file containing profile URLs in the last column
-- `[output_file]` (optional): Output file path (defaults to `combined_profiles.txt`)
-
-#### Example
-
-```bash
-./scripts/shell/fetch_profiles.sh Shines_Profile.csv combined_profiles.txt
-```
+- `curl`
+- `python3.12`
+- `html2text` - for converting HTML to plain text so the file will not hit the file character limits(500,000) of notebooklm
 
 #### Features
 
@@ -59,20 +58,11 @@ Fetches content from URLs stored in a CSV file and concatenates them into a sing
 
 Each fetched profile is appended to the output file with a separator marking the end of each profile:
 ```
+=== START OF [name] ===
 [Profile content here]
 
-=== END OF [url] ===
+=== END OF [name] ===
 ```
-
-## Getting Started
-
-1. Prepare a CSV file with profile URLs in the last column
-2. Run the fetch script:
-   ```bash
-   ./scripts/shell/fetch_profiles.sh your_data.csv output.txt
-   ```
-3. Monitor the progress as URLs are fetched
-4. Review the combined output file when complete
 
 ## Notes
 

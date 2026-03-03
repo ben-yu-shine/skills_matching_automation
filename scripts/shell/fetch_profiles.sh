@@ -26,6 +26,7 @@ echo "$total"
 
 while IFS= read -r line; do
     # Extract the last column (URL) and strip whitespace and carriage returns
+    name=$(echo "$line" | awk -F',' '{print $3}' | xargs)
     url=$(echo "$line" | awk -F',' '{print $NF}' | xargs | tr -d '\r')
     
     if [[ -z "$url" || ! "$url" =~ ^https?:// ]]; then
@@ -40,8 +41,9 @@ while IFS= read -r line; do
     curl -kL --connect-timeout 10 --max-time 30 "$url" > "$temp_file" 2>/dev/null || curl_exit_code=$?
     
     if [[ $curl_exit_code -eq 0 && -s "$temp_file" ]]; then
+        echo -e "\n=== START OF $name ===\n" >> "$OUTPUT_FILE"
         cat "$temp_file" | html2text >> "$OUTPUT_FILE"
-        echo -e "\n\n=== END OF $url ===\n" >> "$OUTPUT_FILE"
+        echo -e "\n\n=== END OF $name ===\n" >> "$OUTPUT_FILE"
         echo "✓ Success" >&2
     else
         echo "✗ Warning: Failed to fetch $url or no content received" >&2
